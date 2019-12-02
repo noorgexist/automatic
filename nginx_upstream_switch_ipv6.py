@@ -35,4 +35,3 @@ with open(upstream_file, 'r') as upstream:
             upstream.write('server {}:443;'.format(ipv6_addr))
             subprocess.run(['nginx', '-s', 'reload'])
             switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
-
