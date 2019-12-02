@@ -1,13 +1,16 @@
 name: test workflow
-on: push
+on:
+  push:
+    paths:
+    - 'switch_ip.py'
 
 jobs:
   build:
-    name: Build test prog
+    name: Test switch ip script
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: run
-      run: /bin/bash prog.sh
+      run: python3 switch_ip.py
     
