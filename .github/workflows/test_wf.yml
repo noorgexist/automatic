@@ -8,6 +8,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
+    - name: install nginx
+      run: apt-get install nginx
     - name: create upstream file
       run: touch upstream
     - name: run
