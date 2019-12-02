@@ -3,13 +3,11 @@ on: push
 
 jobs:
   build:
-    name: Say hi
+    name: Build test prog
     runs-on: ubuntu-latest
     steps:
-    - name: Helo world
-      uses: actions/hello-world-javascript-action@v1
-      with: 
-        who-to-greet: 'Me'
-      id: hello
-    - name: Echo the greeting's time
-      run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: run
+      run: /bin/bash prog.sh
+    
