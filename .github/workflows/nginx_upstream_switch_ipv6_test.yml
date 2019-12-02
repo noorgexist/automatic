@@ -1,0 +1,35 @@
+name: test workflow
+on:
+  push:
+    paths:
+    - 'nginx_upstream_switch_ipv6.py'
+
+jobs:
+  test:
+    name: Test switch ip script
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: install nginx
+      run: sudo apt-get install nginx
+    - name: create upstream file
+      run: touch upstream
+    - name: run with existed domain
+      run: python3 nginx_upstream_switch_ipv6.py google.com upstream swip.log
+    - name: show result
+      run: cat upstream
+    - name: show log
+      run: cat swip.log
+    - name: run with changed ip
+      run: python3 nginx_upstream_switch_ipv6.py google.co upstream swip.log
+    - name: show result
+      run: cat upstream
+    - name: show log
+      run: cat swip.log
+    - name: run with not existed domain
+      run: python3 nginx_upstream_switch_ipv6.py notexisted.comne upstream swip.log
+    - name: show result
+      run: cat upstream
+    - name: show log
+      run: cat swip.log
