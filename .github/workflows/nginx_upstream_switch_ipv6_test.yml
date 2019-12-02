@@ -1,8 +1,13 @@
 name: Nginx upstream switch ipv6 test
 on:
+  pull_request:
+    branches:
+    - develop
+    - master
   push:
     branches:
     - develop
+    - master
     paths:
     - 'nginx_upstream_switch_ipv6.py'
 
