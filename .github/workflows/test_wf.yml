@@ -1,8 +1,5 @@
 name: test workflow
-on:
-  push:
-    paths:
-    - 'switch_ip.py'
+on: push
 
 jobs:
   build:
