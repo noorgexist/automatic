@@ -14,6 +14,14 @@ jobs:
       run: touch upstream
     - name: run with existed domain
       run: python3 switch_ip.py google.com upstream swip.log
+    - name: show result
+      run: cat upstream
+    - name: run with changed ip
+      run: python3 switch_ip.py google.co upstream swip.log
+    - name: show result
+      run: cat upstream
     - name: run with not existed domain
       run: python3 switch_ip.py notexisted.comne upstream swip.log
-   
+    - name: show result
+      run: cat upstream
+
