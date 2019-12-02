@@ -2,7 +2,7 @@ name: test workflow
 on: push
 
 jobs:
-  build:
+  test:
     name: Test switch ip script
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +12,8 @@ jobs:
       run: sudo apt-get install nginx
     - name: create upstream file
       run: touch upstream
-    - name: run
+    - name: run with existed domain
       run: python3 switch_ip.py google.com upstream swip.log
-    
+    - name: run with not existed domain
+      run: python3 switch_ip.py notexisted.comne upstream swip.log
+   
