@@ -1,4 +1,4 @@
 # automatic
 Automate me
 
-![](https://github.com/nonameexist/automatic/workflows/.github/workflows/test_wf.yml/badge.svg?branch=master)
+![](https://github.com/nonameexist/automatic/workflows/.github/workflows/nginx_upstream_switch_ipv6_test.yml.yml/badge.svg?branch=master)
