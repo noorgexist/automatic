@@ -6,12 +6,6 @@ on:
     - master
     paths:
     - 'nginx_upstream_switch_ipv6.py'
-  push:
-    branches:
-    - develop
-    - master
-    paths:
-    - 'nginx_upstream_switch_ipv6.py'
 
 jobs:
   test:
