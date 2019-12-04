@@ -31,7 +31,8 @@ with open(upstream_file, 'r') as upstream:
         sys.exit()
     u = upstream.read()
     if not ipv6_addr in u:
-        with open(upstream_file, 'w') as upstream:
-            upstream.write('server [{}]:443;'.format(ipv6_addr))
-            subprocess.run(['nginx', '-s', 'reload'])
-            switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
+        upstream.seek(0)
+        upstream.truncate()
+        upstream.write('server [{}]:443;'.format(ipv6_addr))
+        subprocess.run(['nginx', '-s', 'reload'])
+        switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
