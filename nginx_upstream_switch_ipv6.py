@@ -25,14 +25,13 @@ switch_ip_logger.addHandler(switch_ip_logger_fh)
 
 with open(upstream_file, 'r+') as upstream:
     try:
-        ipv6_addr = socket.getaddrinfo(domain_name, 443, socket.AF_INET6)[0][4][0]
+        iplist = socket.getaddrinfo(domain_name, 443, socket.AF_INET6, socket.SOCK_STREAM)
     except socket.gaierror:
         switch_ip_logger.critical('App failed with socket.gaierror')
         sys.exit()
     u = upstream.read()
-    if not ipv6_addr in u:
-        upstream.seek(0)
-        upstream.truncate()
-        upstream.write('server [{}]:443;'.format(ipv6_addr))
-        subprocess.run(['nginx', '-s', 'reload'])
-        switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
+    for ip in iplist:
+        if not ip[4][0] in u:
+            upstream.write('server [{}]:443;\n'.format(ip[4][0]))
+#            subprocess.run(['nginx', '-s', 'reload'])
+            switch_ip_logger.info('Address was changed to {}'.format(ip[4][0]))
