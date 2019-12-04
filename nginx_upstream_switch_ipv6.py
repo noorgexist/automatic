@@ -23,7 +23,7 @@ switch_ip_logger_formatter = logging.Formatter('%(asctime)s - %(name)s - %(level
 switch_ip_logger_fh.setFormatter(switch_ip_logger_formatter)
 switch_ip_logger.addHandler(switch_ip_logger_fh)
 
-with open(upstream_file, 'r') as upstream:
+with open(upstream_file, 'r+') as upstream:
     try:
         ipv6_addr = socket.getaddrinfo(domain_name, 443, socket.AF_INET6)[0][4][0]
     except socket.gaierror:
@@ -31,7 +31,8 @@ with open(upstream_file, 'r') as upstream:
         sys.exit()
     u = upstream.read()
     if not ipv6_addr in u:
-        with open(upstream_file, 'w') as upstream:
-            upstream.write('server [{}]:443;'.format(ipv6_addr))
-            subprocess.run(['nginx', '-s', 'reload'])
-            switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
+        upstream.seek(0)
+        upstream.truncate()
+        upstream.write('server [{}]:443;'.format(ipv6_addr))
+        subprocess.run(['nginx', '-s', 'reload'])
+        switch_ip_logger.info('Address was changed to {}'.format(ipv6_addr))
